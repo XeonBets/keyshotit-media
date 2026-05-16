@@ -29,7 +29,7 @@
       --dark2: #111111;
       --dark3: #1a1a1a;
       --text: #e8e8e8;
-      --muted: #888;
+      --muted: #aaa;
     }
 
     /* ── NAV ── */
@@ -58,6 +58,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       animation: shimmer 3s linear infinite;
+      text-decoration: none;
     }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
@@ -163,6 +164,8 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      border: none;
+      cursor: pointer;
     }
     .btn-primary::before {
       content: '';
@@ -185,6 +188,8 @@
       text-decoration: none;
       border-radius: 2px;
       transition: all 0.3s ease;
+      background: transparent;
+      cursor: pointer;
     }
     .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: var(--gold); transform: translateY(-2px); }
     .hero-scroll {
@@ -243,6 +248,8 @@
       overflow: hidden;
       transition: transform 0.3s ease;
       cursor: default;
+      opacity: 0;
+      transform: translateY(24px);
     }
     .service-card::before {
       content: '';
@@ -300,6 +307,8 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
+      opacity: 0;
+      transform: translateY(24px);
     }
     .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
     .gallery-item:nth-child(2) { grid-column: span 4; grid-row: span 1; }
@@ -357,6 +366,8 @@
       position: relative;
       overflow: hidden;
       transition: transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(24px);
     }
     .pricing-card.featured {
       background: linear-gradient(135deg, #1e1e1e, #1a1a1a);
@@ -405,6 +416,7 @@
       text-decoration: none;
       transition: all 0.3s;
       border-radius: 1px;
+      cursor: pointer;
     }
     .pricing-cta:hover { background: rgba(255,255,255,0.1); border-color: var(--gold); }
     .pricing-card.featured .pricing-cta { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 700; }
@@ -480,7 +492,7 @@
       align-items: start;
     }
     .contact-info { display: flex; flex-direction: column; gap: 32px; }
-    .contact-item { display: flex; align-items: flex-start; gap: 20px; }
+    .contact-item { display: flex; align-items: flex-start; gap: 20px; opacity: 0; transform: translateY(24px); }
     .contact-icon {
       width: 44px; height: 44px;
       border: 1px solid rgba(255,255,255,0.3);
@@ -495,7 +507,7 @@
     .contact-item-value { font-size: 1rem; color: var(--text); }
     .contact-item-value a { color: var(--text); text-decoration: none; transition: color 0.2s; }
     .contact-item-value a:hover { color: var(--gold); }
-    .social-row { display: flex; gap: 12px; margin-top: 16px; }
+    .social-row { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
     .social-btn {
       display: flex;
       align-items: center;
@@ -511,6 +523,7 @@
       border-radius: 1px;
     }
     .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,255,255,0.05); }
+    .social-btn svg { display: block; }
     .contact-form { display: flex; flex-direction: column; gap: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 8px; }
     .form-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
@@ -545,6 +558,8 @@
       overflow: hidden;
     }
     .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,255,255,0.35); }
+    .form-submit.success { background: #2a7a2a; color: #fff; }
+    .form-error { color: #ff6b6b; font-size: 0.75rem; margin-top: 4px; }
 
     /* ── FOOTER ── */
     footer {
@@ -612,6 +627,8 @@
       .pricing-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; padding: 32px 24px; }
       .hero-buttons { flex-direction: column; align-items: center; }
+      .contact-inner { gap: 48px; }
+      #about { gap: 32px; }
     }
   </style>
 </head>
@@ -619,7 +636,7 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">keyshotit.media</div>
+    <a href="#home" class="nav-logo">keyshotit.media</a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
@@ -657,19 +674,19 @@
     <div class="section-divider"></div>
     <div class="services-grid">
       <div class="service-card">
-        <span class="service-icon">📸</span>
+        <span class="service-icon" aria-hidden="true">📸</span>
         <h3 class="service-name">Photography</h3>
         <p class="service-desc">From portraits and events to brand and lifestyle — every shot is composed with intention. Sharp, cinematic, and built for impact.</p>
         <span class="service-tag">Portraits · Events · Brand</span>
       </div>
       <div class="service-card">
-        <span class="service-icon">🎬</span>
+        <span class="service-icon" aria-hidden="true">🎬</span>
         <h3 class="service-name">Video Coverage</h3>
         <p class="service-desc">Full-service video production from concept to final cut. Social reels, event films, brand promos — we tell your story visually.</p>
         <span class="service-tag">Reels · Events · Promos</span>
       </div>
       <div class="service-card">
-        <span class="service-icon">✨</span>
+        <span class="service-icon" aria-hidden="true">✨</span>
         <h3 class="service-name">Content Creation</h3>
         <p class="service-desc">Ready-to-post social content built around your brand. Consistent, scroll-stopping visuals designed to grow your audience.</p>
         <span class="service-tag">Social · Digital · Brand</span>
@@ -681,42 +698,42 @@
   <section id="portfolio">
     <span class="section-label">Our Work</span>
     <h2 class="section-title">Portfolio</h2>
-    <p class="gallery-note">Portfolio images — drop your shots in to bring this to life.</p>
+    <p class="gallery-note">Our latest work across photography, video, and content creation.</p>
     <div class="section-divider"></div>
     <div class="gallery-grid">
       <div class="gallery-item">
         <div class="gallery-placeholder">
-          <span>📷</span>
+          <span aria-hidden="true">📷</span>
           <span>Featured Shot</span>
         </div>
         <div class="gallery-overlay"><span>View</span></div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><span>🎬</span><span>Video Still</span></div>
+        <div class="gallery-placeholder"><span aria-hidden="true">🎬</span><span>Video Still</span></div>
         <div class="gallery-overlay"><span>View</span></div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><span>📸</span><span>Portrait</span></div>
+        <div class="gallery-placeholder"><span aria-hidden="true">📸</span><span>Portrait</span></div>
         <div class="gallery-overlay"><span>View</span></div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><span>📷</span><span>Event</span></div>
+        <div class="gallery-placeholder"><span aria-hidden="true">📷</span><span>Event</span></div>
         <div class="gallery-overlay"><span>View</span></div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><span>🎥</span><span>Promo</span></div>
+        <div class="gallery-placeholder"><span aria-hidden="true">🎥</span><span>Promo</span></div>
         <div class="gallery-overlay"><span>View</span></div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><span>📸</span><span>Brand</span></div>
+        <div class="gallery-placeholder"><span aria-hidden="true">📸</span><span>Brand</span></div>
         <div class="gallery-overlay"><span>View</span></div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><span>📷</span><span>Lifestyle</span></div>
+        <div class="gallery-placeholder"><span aria-hidden="true">📷</span><span>Lifestyle</span></div>
         <div class="gallery-overlay"><span>View</span></div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><span>🎬</span><span>Reel</span></div>
+        <div class="gallery-placeholder"><span aria-hidden="true">🎬</span><span>Reel</span></div>
         <div class="gallery-overlay"><span>View</span></div>
       </div>
     </div>
@@ -727,7 +744,7 @@
     <span class="section-label">Investment</span>
     <h2 class="section-title">Pricing</h2>
     <div class="section-divider"></div>
-    <div class="pricing-grid">
+    <div class="pricing-grid" id="pricingGrid">
       <div class="pricing-card">
         <p class="pricing-tier">Essential</p>
         <div class="pricing-price"><span class="placeholder-price">Pricing coming soon</span></div>
@@ -775,7 +792,7 @@
   <section id="about">
     <div class="about-visual">
       <div class="about-frame">
-        <span>📷</span>
+        <span aria-hidden="true">📷</span>
         <span>Drop your photo here</span>
       </div>
       <div class="about-corner tl"></div>
@@ -785,12 +802,14 @@
       <span class="section-label">About</span>
       <h2 class="section-title">The Eye Behind<br />the Lens</h2>
       <div class="section-divider"></div>
-      <p>
-        Based in Middle Tennessee, keyshotit.media delivers professional photo and video coverage that captures real moments with cinematic quality. Every shot is crafted with precision and purpose — nothing generic, nothing forgettable.
-      </p>
-      <p>
-        Whether it's an event, a brand campaign, or a personal shoot, the mission is the same: create visuals that stop the scroll and tell your story the way it deserves to be told.
-      </p>
+      <div id="aboutContent">
+        <p>
+          Based in Middle Tennessee, keyshotit.media delivers professional photo and video coverage that captures real moments with cinematic quality. Every shot is crafted with precision and purpose.
+        </p>
+        <p>
+          Whether it's an event, a brand campaign, or a personal shoot, the mission is the same: create visuals that stop the scroll and tell your story the way it deserves to be told.
+        </p>
+      </div>
       <div class="about-stat-row">
         <div class="about-stat">
           <span class="about-stat-num">MTN</span>
@@ -814,58 +833,25 @@
     <h2 class="section-title">Let's Create<br />Something Great</h2>
     <div class="section-divider"></div>
     <div class="contact-inner">
-      <div class="contact-info">
-        <div class="contact-item">
-          <div class="contact-icon">📞</div>
-          <div>
-            <p class="contact-item-label">Phone</p>
-            <p class="contact-item-value"><a href="tel:9319981444">(931) 998-1444</a></p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">✉️</div>
-          <div>
-            <p class="contact-item-label">Email</p>
-            <p class="contact-item-value"><a href="mailto:keylando1313@gmail.com">keylando1313@gmail.com</a></p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">📍</div>
-          <div>
-            <p class="contact-item-label">Location</p>
-            <p class="contact-item-value">Middle Tennessee</p>
-          </div>
-        </div>
-        <div>
-          <p class="contact-item-label" style="margin-bottom: 12px;">Follow Along</p>
-          <div class="social-row">
-            <a href="https://www.instagram.com/keyshotit.media/" target="_blank" class="social-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-              Instagram
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61583874373507" target="_blank" class="social-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-              Facebook
-            </a>
-          </div>
-        </div>
+      <div class="contact-info" id="contactInfo">
+        <!-- Populated by JavaScript from data.json -->
       </div>
-      <form class="contact-form" onsubmit="handleSubmit(event)">
+      <form class="contact-form" id="contactForm" novalidate>
         <div class="form-group">
-          <label class="form-label">Name</label>
-          <input type="text" class="form-input" placeholder="Your name" required />
+          <label class="form-label" for="nameInput">Name</label>
+          <input type="text" id="nameInput" class="form-input" placeholder="Your name" required />
         </div>
         <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-input" placeholder="your@email.com" required />
+          <label class="form-label" for="emailInput">Email</label>
+          <input type="email" id="emailInput" class="form-input" placeholder="your@email.com" required />
         </div>
         <div class="form-group">
-          <label class="form-label">What are you booking?</label>
-          <input type="text" class="form-input" placeholder="e.g. Event photography, brand video..." />
+          <label class="form-label" for="serviceInput">What are you booking?</label>
+          <input type="text" id="serviceInput" class="form-input" placeholder="e.g. Event photography, brand video..." />
         </div>
         <div class="form-group">
-          <label class="form-label">Message</label>
-          <textarea class="form-textarea" placeholder="Tell me about your project, date, and any details..."></textarea>
+          <label class="form-label" for="messageInput">Message</label>
+          <textarea id="messageInput" class="form-textarea" placeholder="Tell me about your project, date, and any details..."></textarea>
         </div>
         <button type="submit" class="form-submit">Send Message</button>
       </form>
@@ -880,49 +866,144 @@
   </footer>
 
   <script>
-    // Load pricing and gallery from data.json
+    // Load pricing, gallery, about, and contact from data.json
     (async function loadSiteData() {
       try {
         const res = await fetch('./data.json?' + Date.now());
-        if (!res.ok) return;
+        if (!res.ok) throw new Error('Failed to load data.json');
         const data = await res.json();
-        const cards = document.querySelectorAll('.pricing-card');
 
         // Pricing
-        (data.pricing || []).forEach((pkg, i) => {
-          if (!cards[i]) return;
-          const card = cards[i];
-          if (pkg.price) {
-            card.querySelector('.pricing-price').innerHTML =
-              `<span class="currency">$</span>${pkg.price}`;
-          }
-          if (pkg.description) card.querySelector('.pricing-desc').textContent = pkg.description;
-          const features = (pkg.features || []).filter(f => f.trim());
-          if (features.length) {
-            card.querySelector('.pricing-features').innerHTML =
-              features.map(f => `<li>${f}</li>`).join('');
-          }
-        });
+        if (data.pricing) {
+          const cards = document.querySelectorAll('.pricing-card');
+          data.pricing.forEach((pkg, i) => {
+            if (!cards[i]) return;
+            const card = cards[i];
+            if (pkg.price) {
+              card.querySelector('.pricing-price').innerHTML =
+                `<span class="currency">$</span>${pkg.price}`;
+            }
+            if (pkg.description) card.querySelector('.pricing-desc').textContent = pkg.description;
+            const features = (pkg.features || []).filter(f => f.trim());
+            if (features.length) {
+              card.querySelector('.pricing-features').innerHTML =
+                features.map(f => `<li>${f}</li>`).join('');
+            }
+          });
+        }
 
         // Gallery
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        (data.gallery || []).forEach((item, i) => {
-          if (!galleryItems[i] || !item.url) return;
-          const placeholder = galleryItems[i].querySelector('.gallery-placeholder');
-          if (placeholder) {
-            const img = document.createElement('img');
-            img.src = item.url;
-            img.alt = item.label || 'Portfolio photo';
-            placeholder.replaceWith(img);
+        if (data.gallery) {
+          const galleryItems = document.querySelectorAll('.gallery-item');
+          data.gallery.forEach((item, i) => {
+            if (!galleryItems[i] || !item.url) return;
+            const placeholder = galleryItems[i].querySelector('.gallery-placeholder');
+            if (placeholder) {
+              const img = document.createElement('img');
+              img.src = item.url;
+              img.alt = item.label || 'Portfolio photo';
+              img.loading = 'lazy';
+              placeholder.replaceWith(img);
+            }
+          });
+        }
+
+        // About section
+        if (data.about && data.about.bio) {
+          const aboutContent = document.getElementById('aboutContent');
+          if (aboutContent) {
+            const paragraphs = data.about.bio.split('\n\n');
+            aboutContent.innerHTML = paragraphs
+              .map(p => `<p>${p}</p>`)
+              .join('');
           }
-        });
-      } catch(e) {}
+        }
+
+        // Contact info
+        if (data.contact) {
+          const contactInfo = document.getElementById('contactInfo');
+          if (contactInfo) {
+            let html = '';
+            
+            if (data.contact.phone) {
+              html += `
+                <div class="contact-item">
+                  <div class="contact-icon">📞</div>
+                  <div>
+                    <p class="contact-item-label">Phone</p>
+                    <p class="contact-item-value"><a href="tel:${data.contact.phone.replace(/\D/g, '')}">${data.contact.phone}</a></p>
+                  </div>
+                </div>
+              `;
+            }
+            
+            if (data.contact.email) {
+              html += `
+                <div class="contact-item">
+                  <div class="contact-icon">✉️</div>
+                  <div>
+                    <p class="contact-item-label">Email</p>
+                    <p class="contact-item-value"><a href="mailto:${data.contact.email}">${data.contact.email}</a></p>
+                  </div>
+                </div>
+              `;
+            }
+            
+            if (data.contact.location) {
+              html += `
+                <div class="contact-item">
+                  <div class="contact-icon">📍</div>
+                  <div>
+                    <p class="contact-item-label">Location</p>
+                    <p class="contact-item-value">${data.contact.location}</p>
+                  </div>
+                </div>
+              `;
+            }
+            
+            if (data.contact.social && data.contact.social.length) {
+              html += `
+                <div>
+                  <p class="contact-item-label" style="margin-bottom: 12px;">Follow Along</p>
+                  <div class="social-row">
+              `;
+              
+              data.contact.social.forEach(social => {
+                const svgIcon = getSocialIcon(social.icon);
+                html += `
+                  <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="${social.name}">
+                    ${svgIcon}
+                    ${social.name}
+                  </a>
+                `;
+              });
+              
+              html += `
+                  </div>
+                </div>
+              `;
+            }
+            
+            contactInfo.innerHTML = html;
+          }
+        }
+      } catch(e) {
+        console.warn('Could not load data.json:', e.message);
+      }
     })();
+
+    function getSocialIcon(name) {
+      const icons = {
+        instagram: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 2.16c2.71 0 3.028.01 4.093.059 1.071.049 1.658.228 2.05.381a3.477 3.477 0 011.257.817c.39.39.641.775.817 1.257.153.392.332.979.381 2.05.049 1.065.059 1.383.059 4.093s-.01 3.028-.059 4.093c-.049 1.071-.228 1.658-.381 2.05a3.477 3.477 0 01-.817 1.257c-.39.39-.775.641-1.257.817-.392.153-.979.332-2.05.381-1.065.049-1.383.059-4.093.059s-3.028-.01-4.093-.059c-1.071-.049-1.658-.228-2.05-.381a3.477 3.477 0 01-1.257-.817c-.39-.39-.641-.775-.817-1.257-.153-.392-.332-.979-.381-2.05-.049-1.065-.059-1.383-.059-4.093s.01-3.028.059-4.093c.049-1.071.228-1.658.381-2.05a3.477 3.477 0 01.817-1.257c.39-.39.775-.641 1.257-.817.392-.153.979-.332 2.05-.381 1.065-.049 1.383-.059 4.093-.059z"/></svg>',
+        facebook: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
+      };
+      return icons[name] || '';
+    }
 
     // Nav shrink on scroll
     window.addEventListener('scroll', () => {
-      document.querySelector('nav').style.padding =
-        window.scrollY > 60 ? '14px 60px' : '20px 60px';
+      const nav = document.querySelector('nav');
+      nav.style.padding = window.scrollY > 60 ? '14px 60px' : '20px 60px';
     });
 
     // Fade-in on scroll
@@ -936,28 +1017,61 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.service-card, .pricing-card, .gallery-item, .contact-item').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(24px)';
       el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(el);
     });
 
-    // Form submit handler
+    // Form submit handler with validation
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', handleSubmit);
+
     function handleSubmit(e) {
       e.preventDefault();
+      
+      const nameInput = document.getElementById('nameInput');
+      const emailInput = document.getElementById('emailInput');
       const btn = e.target.querySelector('.form-submit');
+      
+      // Basic validation
+      if (!nameInput.value.trim()) {
+        showError(nameInput, 'Name is required');
+        return;
+      }
+      if (!emailInput.value.trim() || !isValidEmail(emailInput.value)) {
+        showError(emailInput, 'Valid email is required');
+        return;
+      }
+      
+      // Clear errors
+      document.querySelectorAll('.form-error').forEach(err => err.remove());
+      
+      // Show success state
+      btn.classList.add('success');
       btn.textContent = 'Message Sent ✓';
-      btn.style.background = '#2a7a2a';
-      btn.style.color = '#fff';
+      
+      // Reset form after delay
       setTimeout(() => {
+        btn.classList.remove('success');
         btn.textContent = 'Send Message';
-        btn.style.background = '';
-        btn.style.color = '';
-        e.target.reset();
+        contactForm.reset();
       }, 3000);
+    }
+
+    function showError(input, message) {
+      const existing = input.nextElementSibling;
+      if (existing && existing.classList.contains('form-error')) {
+        existing.remove();
+      }
+      const error = document.createElement('div');
+      error.className = 'form-error';
+      error.textContent = message;
+      input.after(error);
+    }
+
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
     }
   </script>
 </body>
 </html>
-/HQ/websites/keyshotit-media/admin.html
-/HQ/websites/keyshotit-media/data.json
