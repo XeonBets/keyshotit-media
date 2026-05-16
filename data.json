@@ -1,0 +1,99 @@
+{
+  "contact": {
+    "phone": "(931) 998-1444",
+    "email": "keylando1313@gmail.com",
+    "location": "Middle Tennessee",
+    "social": [
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/keyshotit.media/",
+        "icon": "instagram"
+      },
+      {
+        "name": "Facebook",
+        "url": "https://www.facebook.com/profile.php?id=61583874373507",
+        "icon": "facebook"
+      }
+    ]
+  },
+  "pricing": [
+    {
+      "tier": "Essential",
+      "price": 500,
+      "description": "Perfect for individuals and small events looking for clean, professional coverage.",
+      "features": [
+        "2-4 hour coverage",
+        "100+ edited photos",
+        "Digital gallery delivery",
+        "One revision round"
+      ]
+    },
+    {
+      "tier": "Signature",
+      "price": 1200,
+      "description": "Our most booked package — full coverage with cinematic delivery for those who want the full experience.",
+      "featured": true,
+      "features": [
+        "Full-day coverage (8 hours)",
+        "500+ edited photos",
+        "4K video highlights reel (2-3 min)",
+        "Custom digital gallery",
+        "Two revision rounds",
+        "Rush delivery available"
+      ]
+    },
+    {
+      "tier": "Premium",
+      "price": 2500,
+      "description": "Full-day coverage with extended deliverables. Built for brands, productions, and major events.",
+      "features": [
+        "Full-day extended coverage (10+ hours)",
+        "1000+ edited photos",
+        "Professional 4K video package",
+        "Cinematic highlight film (5-7 min)",
+        "Custom branded gallery",
+        "Unlimited revisions",
+        "Behind-the-scenes content",
+        "Priority booking & support"
+      ]
+    }
+  ],
+  "gallery": [
+    {
+      "url": "https://images.unsplash.com/photo-1606011436435-19e59400c30f?w=800&h=500&fit=crop",
+      "label": "Featured Shot"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=600&h=300&fit=crop",
+      "label": "Video Still"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=450&h=300&fit=crop",
+      "label": "Portrait"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1519167758481-dc8743210e81?w=600&h=500&fit=crop",
+      "label": "Event"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1596933789368-1e21a9c34fbe?w=450&h=300&fit=crop",
+      "label": "Promo"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=450&h=300&fit=crop",
+      "label": "Brand"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1502933691298-84fc14542831?w=600&h=300&fit=crop",
+      "label": "Lifestyle"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1536240478688-92c905df1db6?w=600&h=300&fit=crop",
+      "label": "Reel"
+    }
+  ],
+  "about": {
+    "heading": "The Eye Behind the Lens",
+    "bio": "Based in Middle Tennessee, keyshotit.media delivers professional photo and video coverage that captures real moments with cinematic quality. Every shot is crafted with precision and purpose—no templates, no shortcuts, just your story told the way it deserves.\n\nWhether it's an event, a brand campaign, or a personal shoot, the mission is the same: create visuals that stop the scroll and tell your story the way it deserves to be told. With a focus on authentic moments and polished delivery, we make sure your memories are worth keeping forever."
+  }
+}
