@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keyshotit.media Admin Panel</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      color: #e8e8e8;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 20px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { margin-bottom: 30px; color: #fff; }
+    .section { background: #1a1a1a; padding: 24px; margin-bottom: 24px; border-radius: 4px; border: 1px solid #333; }
+    .section h2 { font-size: 1.3rem; margin-bottom: 20px; color: #fff; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 6px; }
+    input, textarea, button { font-family: inherit; }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      background: #111;
+      border: 1px solid #333;
+      color: #e8e8e8;
+      border-radius: 2px;
+      font-size: 0.95rem;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    input:focus, textarea:focus { outline: none; border-color: #fff; }
+    button {
+      padding: 12px 24px;
+      background: #fff;
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button:hover { background: #e8e8e8; transform: translateY(-2px); }
+    button.secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid #333;
+    }
+    button.secondary:hover { background: #222; border-color: #555; }
+    .btn-group { display: flex; gap: 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .card { background: #111; padding: 16px; border: 1px solid #333; border-radius: 4px; }
+    .card h3 { margin-bottom: 12px; font-size: 1rem; color: #fff; }
+    .card-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .card-actions button { padding: 8px 12px; font-size: 0.75rem; flex: 1; }
+    .success { color: #4ade80; }
+    .error { color: #ff6b6b; }
+    .message { padding: 12px; border-radius: 2px; margin-bottom: 16px; font-size: 0.9rem; }
+    .success-msg { background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; color: #4ade80; }
+    .error-msg { background: rgba(255, 107, 107, 0.1); border: 1px solid #ff6b6b; color: #ff6b6b; }
+    .tab-buttons { display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid #333; }
+    .tab-btn { padding: 12px 20px; background: none; border: none; color: #aaa; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; border-bottom: 2px solid transparent; }
+    .tab-btn.active { color: #fff; border-bottom-color: #fff; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>keyshotit.media Admin Panel</h1>
+    
+    <div id="message"></div>
+
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab('pricing')">Pricing</button>
+      <button class="tab-btn" onclick="switchTab('gallery')">Gallery</button>
+      <button class="tab-btn" onclick="switchTab('about')">About</button>
+      <button class="tab-btn" onclick="switchTab('contact')">Contact</button>
+    </div>
+
+    <!-- PRICING TAB -->
+    <div id="pricing" class="tab-content active">
+      <div class="section">
+        <h2>Pricing Tiers</h2>
+        <div id="pricingList" class="grid"></div>
+        <button onclick="addPricingTier()" style="margin-top: 16px;">+ Add New Tier</button>
+      </div>
+    </div>
+
+    <!-- GALLERY TAB -->
+    <div id="gallery" class="tab-content">
+      <div class="section">
+        <h2>Portfolio Gallery</h2>
+        <div id="galleryList" class="grid"></div>
+        <button onclick="addGalleryItem()" style="margin-top: 16px;">+ Add New Photo</button>
+      </div>
+    </div>
+
+    <!-- ABOUT TAB -->
+    <div id="about" class="tab-content">
+      <div class="section">
+        <h2>About Section</h2>
+        <div class="form-group">
+          <label>Bio Text (use two line breaks to create paragraphs)</label>
+          <textarea id="aboutBio" placeholder="Write your bio here..."></textarea>
+        </div>
+        <button onclick="saveAbout()">Save About</button>
+      </div>
+    </div>
+
+    <!-- CONTACT TAB -->
+    <div id="contact" class="tab-content">
+      <div class="section">
+        <h2>Contact Information</h2>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" id="contactPhone" placeholder="(931) 998-1444" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="contactEmail" placeholder="email@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="contactLocation" placeholder="Middle Tennessee" />
+        </div>
+        <h3 style="margin-top: 24px; margin-bottom: 16px;">Social Media</h3>
+        <div id="socialList"></div>
+        <button onclick="savContact()" style="margin-top: 16px;">Save Contact Info</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let data = {};
+
+    // Load data on startup
+    window.addEventListener('load', loadData);
+
+    async function loadData() {
+      try {
+        const res = await fetch('./data.json?' + Date.now());
+        if (!res.ok) throw new Error('Failed to load data');
+        data = await res.json();
+        renderPricing();
+        renderGallery();
+        renderAbout();
+        renderContact();
+      } catch(e) {
+        showMessage('Error loading data: ' + e.message, 'error');
+      }
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // PRICING
+    function renderPricing() {
+      const list = document.getElementById('pricingList');
+      list.innerHTML = '';
+      (data.pricing || []).forEach((tier, i) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h3>${tier.tier}</h3>
+          <div class="form-group">
+            <label>Price</label>
+            <input type="number" value="${tier.price || 0}" onchange="updatePricingField(${i}, 'price', this.value)">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea onchange="updatePricingField(${i}, 'description', this.value)">${tier.description || ''}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Features (one per line)</label>
+            <textarea onchange="updatePricingFeatures(${i}, this.value)">${(tier.features || []).join('\n')}</textarea>
+          </div>
+          <div class="card-actions">
+            <button class="secondary" onclick="deletePricingTier(${i})">Delete</button>
+            <button onclick="savePricing()">Save All</button>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function updatePricingField(i, field, value) {
+      if (!data.pricing[i]) return;
+      data.pricing[i][field] = field === 'price' ? parseInt(value) : value;
+    }
+
+    function updatePricingFeatures(i, value) {
+      if (!data.pricing[i]) return;
+      data.pricing[i].features = value.split('\n').map(f => f.trim()).filter(f => f);
+    }
+
+    function addPricingTier() {
+      if (!data.pricing) data.pricing = [];
+      data.pricing.push({
+        tier: 'New Tier',
+        price: 0,
+        description: '',
+        features: []
+      });
+      renderPricing();
+    }
+
+    function deletePricingTier(i) {
+      data.pricing.splice(i, 1);
+      renderPricing();
+    }
+
+    async function savePricing() {
+      await saveData();
+      showMessage('Pricing saved successfully!', 'success');
+    }
+
+    // GALLERY
+    function renderGallery() {
+      const list = document.getElementById('galleryList');
+      list.innerHTML = '';
+      (data.gallery || []).forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${item.url}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 2px; margin-bottom: 12px;">
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" value="${item.url}" onchange="updateGalleryField(${i}, 'url', this.value)">
+          </div>
+          <div class="form-group">
+            <label>Label</label>
+            <input type="text" value="${item.label || ''}" onchange="updateGalleryField(${i}, 'label', this.value)">
+          </div>
+          <div class="card-actions">
+            <button class="secondary" onclick="deleteGalleryItem(${i})">Delete</button>
+            <button onclick="saveGallery()">Save All</button>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function updateGalleryField(i, field, value) {
+      if (!data.gallery[i]) return;
+      data.gallery[i][field] = value;
+      renderGallery();
+    }
+
+    function addGalleryItem() {
+      if (!data.gallery) data.gallery = [];
+      data.gallery.push({
+        url: 'https://via.placeholder.com/400x300?text=New+Photo',
+        label: 'New Photo'
+      });
+      renderGallery();
+    }
+
+    function deleteGalleryItem(i) {
+      data.gallery.splice(i, 1);
+      renderGallery();
+    }
+
+    async function saveGallery() {
+      await saveData();
+      showMessage('Gallery saved successfully!', 'success');
+    }
+
+    // ABOUT
+    function renderAbout() {
+      const bioInput = document.getElementById('aboutBio');
+      if (data.about && data.about.bio) {
+        bioInput.value = data.about.bio;
+      }
+    }
+
+    async function saveAbout() {
+      if (!data.about) data.about = {};
+      data.about.bio = document.getElementById('aboutBio').value;
+      await saveData();
+      showMessage('About section saved successfully!', 'success');
+    }
+
+    // CONTACT
+    function renderContact() {
+      if (!data.contact) return;
+      document.getElementById('contactPhone').value = data.contact.phone || '';
+      document.getElementById('contactEmail').value = data.contact.email || '';
+      document.getElementById('contactLocation').value = data.contact.location || '';
+
+      const socialList = document.getElementById('socialList');
+      socialList.innerHTML = '';
+      (data.contact.social || []).forEach((social, i) => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+          <div class="form-group">
+            <label>Platform</label>
+            <input type="text" value="${social.name}" onchange="updateSocial(${i}, 'name', this.value)">
+          </div>
+          <div class="form-group">
+            <label>URL</label>
+            <input type="url" value="${social.url}" onchange="updateSocial(${i}, 'url', this.value)">
+          </div>
+          <button class="secondary" onclick="deleteSocial(${i})">Delete</button>
+        `;
+        socialList.appendChild(div);
+      });
+    }
+
+    function updateSocial(i, field, value) {
+      if (!data.contact.social[i]) return;
+      data.contact.social[i][field] = value;
+    }
+
+    function deleteSocial(i) {
+      data.contact.social.splice(i, 1);
+      renderContact();
+    }
+
+    async function savContact() {
+      if (!data.contact) data.contact = {};
+      data.contact.phone = document.getElementById('contactPhone').value;
+      data.contact.email = document.getElementById('contactEmail').value;
+      data.contact.location = document.getElementById('contactLocation').value;
+      await saveData();
+      showMessage('Contact info saved successfully!', 'success');
+    }
+
+    // SAVE DATA
+    async function saveData() {
+      try {
+        // Note: This requires backend API or GitHub API token
+        // For now, display JSON for user to manually update
+        const json = JSON.stringify(data, null, 2);
+        console.log('Updated data:', json);
+        
+        // Copy to clipboard
+        await navigator.clipboard.writeText(json);
+        showMessage('Data copied to clipboard! Paste into data.json on GitHub.', 'success');
+      } catch(e) {
+        showMessage('Error: ' + e.message, 'error');
+      }
+    }
+
+    function showMessage(msg, type) {
+      const el = document.getElementById('message');
+      el.className = `message ${type}-msg`;
+      el.textContent = msg;
+      setTimeout(() => el.textContent = '', 5000);
+    }
+  </script>
+</body>
+</html>
