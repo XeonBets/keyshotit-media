@@ -1,3 +1,963 @@
-file:///Users/dianafarmer/HQ/websites/keyshotit-media/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keyshotit.media — Photo & Video | Middle TN</title>
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0a0a0a;
+      color: #e8e8e8;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    ::selection { background: #ffffff; color: #000; }
+
+    /* ── CUSTOM SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 2px; }
+
+    /* ── VARIABLES ── */
+    :root {
+      --gold: #ffffff;
+      --gold-light: #e8e8e8;
+      --dark: #0a0a0a;
+      --dark2: #111111;
+      --dark3: #1a1a1a;
+      --text: #e8e8e8;
+      --muted: #888;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      transition: padding 0.3s ease;
+    }
+    .nav-logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: lowercase;
+      background: linear-gradient(135deg, #ffffff, #e8e8e8, #ffffff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 40%, #1a1a1a 0%, #0a0a0a 70%);
+    }
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 24px; }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-transform: lowercase;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, #ffffff, #e8e8e8, #cccccc);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.45s ease both;
+    }
+    .btn-primary {
+      padding: 14px 36px;
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.4s;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,255,255,0.4); }
+    .btn-ghost {
+      padding: 14px 36px;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: var(--gold); transform: translateY(-2px); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: fadeUp 1s 0.8s ease both;
+    }
+    .hero-scroll span { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 120px 60px; }
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .section-divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 60px;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--dark2); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      margin-top: 60px;
+    }
+    .service-card {
+      background: var(--dark3);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 0;
+      background: var(--gold);
+      transition: height 0.4s ease;
+    }
+    .service-card:hover::before { height: 100%; }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      display: block;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.4));
+    }
+    .service-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .service-desc { color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+    .service-tag {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 4px 12px;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 1px;
+    }
+
+    /* ── GALLERY ── */
+    #portfolio { background: var(--dark); }
+    .gallery-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(3, 200px);
+      gap: 4px;
+      margin-top: 60px;
+    }
+    .gallery-item {
+      background: var(--dark3);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+    .gallery-item:nth-child(2) { grid-column: span 4; grid-row: span 1; }
+    .gallery-item:nth-child(3) { grid-column: span 3; grid-row: span 1; }
+    .gallery-item:nth-child(4) { grid-column: span 4; grid-row: span 2; }
+    .gallery-item:nth-child(5) { grid-column: span 3; grid-row: span 1; }
+    .gallery-item:nth-child(6) { grid-column: span 3; grid-row: span 1; }
+    .gallery-item:nth-child(7) { grid-column: span 5; grid-row: span 1; }
+    .gallery-item:nth-child(8) { grid-column: span 4; grid-row: span 1; }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #161616, #1e1e1e);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border-color 0.3s;
+    }
+    .gallery-item:hover .gallery-placeholder { border-color: rgba(255,255,255,0.25); }
+    .gallery-placeholder span:first-child { font-size: 1.8rem; opacity: 0.3; }
+    .gallery-placeholder span:last-child { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--dark2); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+      margin-top: 60px;
+    }
+    .pricing-card {
+      background: var(--dark3);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .pricing-card.featured {
+      background: linear-gradient(135deg, #1e1e1e, #1a1a1a);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-tier {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .pricing-price .currency { font-size: 1.2rem; vertical-align: top; margin-top: 12px; display: inline-block; color: var(--muted); }
+    .pricing-price .placeholder-price { font-size: 1rem; color: var(--muted); font-weight: 400; letter-spacing: 0.05em; }
+    .pricing-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 32px; line-height: 1.6; }
+    .pricing-divider { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 28px; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .pricing-features li::before { content: '—'; color: var(--gold); font-size: 0.7rem; flex-shrink: 0; }
+    .pricing-features li.placeholder { opacity: 0.35; font-style: italic; }
+    .pricing-cta {
+      display: block;
+      margin-top: 36px;
+      padding: 12px 24px;
+      text-align: center;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      border-radius: 1px;
+    }
+    .pricing-cta:hover { background: rgba(255,255,255,0.1); border-color: var(--gold); }
+    .pricing-card.featured .pricing-cta { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 700; }
+    .pricing-card.featured .pricing-cta:hover { background: var(--gold-light); }
+    .featured-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: var(--gold);
+      color: #000;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 1px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+      height: 500px;
+    }
+    .about-frame {
+      position: absolute;
+      inset: 0;
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .about-frame span:first-child { font-size: 3rem; opacity: 0.2; }
+    .about-frame span:last-child { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); opacity: 0.4; }
+    .about-corner {
+      position: absolute;
+      width: 40px; height: 40px;
+    }
+    .about-corner.tl { top: -2px; left: -2px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+    .about-corner.br { bottom: -2px; right: -2px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+    .about-stat-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .about-stat { display: flex; flex-direction: column; gap: 4px; }
+    .about-stat-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-stat-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 20px; font-size: 1rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--dark2); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 32px; }
+    .contact-item { display: flex; align-items: flex-start; gap: 20px; }
+    .contact-icon {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+    .contact-item-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .contact-item-value { font-size: 1rem; color: var(--text); }
+    .contact-item-value a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+    .contact-item-value a:hover { color: var(--gold); }
+    .social-row { display: flex; gap: 12px; margin-top: 16px; }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      border-radius: 1px;
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,255,255,0.05); }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+    .form-input, .form-textarea {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      padding: 14px 18px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.3s;
+      border-radius: 1px;
+      resize: none;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: rgba(255,255,255,0.5); }
+    .form-input::placeholder, .form-textarea::placeholder { color: #444; }
+    .form-textarea { min-height: 120px; }
+    .form-submit {
+      padding: 16px 36px;
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+    .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,255,255,0.35); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: lowercase;
+      background: linear-gradient(135deg, #ffffff, #e8e8e8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-copy { font-size: 0.75rem; color: #555; letter-spacing: 0.05em; }
+    .footer-tagline { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: #444; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    }
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    @keyframes scrollDrop {
+      0% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+      100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      nav { padding: 20px 32px; }
+      section { padding: 80px 32px; }
+      #about { grid-template-columns: 1fr; gap: 48px; }
+      .about-visual { height: 300px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      nav { padding: 18px 24px; }
+      section { padding: 60px 24px; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; height: 180px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; padding: 32px 24px; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">keyshotit.media</div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Middle Tennessee's Premier Visual Studio</p>
+      <h1 class="hero-title"><span>key</span>shot<span>it</span></h1>
+      <p class="hero-sub">
+        Cinematic photo &amp; video coverage that captures the moments worth keeping — delivered with precision, every time.
+      </p>
+      <div class="hero-buttons">
+        <a href="#portfolio" class="btn-primary">View Portfolio</a>
+        <a href="#contact" class="btn-ghost">Book a Session</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <span class="section-label">What We Offer</span>
+    <h2 class="section-title">Photo &amp; Video<br />Coverage</h2>
+    <div class="section-divider"></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">📸</span>
+        <h3 class="service-name">Photography</h3>
+        <p class="service-desc">From portraits and events to brand and lifestyle — every shot is composed with intention. Sharp, cinematic, and built for impact.</p>
+        <span class="service-tag">Portraits · Events · Brand</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎬</span>
+        <h3 class="service-name">Video Coverage</h3>
+        <p class="service-desc">Full-service video production from concept to final cut. Social reels, event films, brand promos — we tell your story visually.</p>
+        <span class="service-tag">Reels · Events · Promos</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">✨</span>
+        <h3 class="service-name">Content Creation</h3>
+        <p class="service-desc">Ready-to-post social content built around your brand. Consistent, scroll-stopping visuals designed to grow your audience.</p>
+        <span class="service-tag">Social · Digital · Brand</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <span class="section-label">Our Work</span>
+    <h2 class="section-title">Portfolio</h2>
+    <p class="gallery-note">Portfolio images — drop your shots in to bring this to life.</p>
+    <div class="section-divider"></div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>📷</span>
+          <span>Featured Shot</span>
+        </div>
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>🎬</span><span>Video Still</span></div>
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>📸</span><span>Portrait</span></div>
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>📷</span><span>Event</span></div>
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>🎥</span><span>Promo</span></div>
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>📸</span><span>Brand</span></div>
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>📷</span><span>Lifestyle</span></div>
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>🎬</span><span>Reel</span></div>
+        <div class="gallery-overlay"><span>View</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <span class="section-label">Investment</span>
+    <h2 class="section-title">Pricing</h2>
+    <div class="section-divider"></div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="pricing-tier">Essential</p>
+        <div class="pricing-price"><span class="placeholder-price">Pricing coming soon</span></div>
+        <p class="pricing-desc">Perfect for individuals and small events looking for clean, professional coverage.</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+        </ul>
+        <a href="#contact" class="pricing-cta">Inquire</a>
+      </div>
+      <div class="pricing-card featured">
+        <span class="featured-badge">Popular</span>
+        <p class="pricing-tier">Signature</p>
+        <div class="pricing-price"><span class="placeholder-price">Pricing coming soon</span></div>
+        <p class="pricing-desc">Our most booked package — full coverage with cinematic delivery for those who want the full experience.</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+        </ul>
+        <a href="#contact" class="pricing-cta">Inquire</a>
+      </div>
+      <div class="pricing-card">
+        <p class="pricing-tier">Premium</p>
+        <div class="pricing-price"><span class="placeholder-price">Pricing coming soon</span></div>
+        <p class="pricing-desc">Full-day coverage with extended deliverables. Built for brands, productions, and major events.</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+          <li class="placeholder">Details coming soon</li>
+        </ul>
+        <a href="#contact" class="pricing-cta">Inquire</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-visual">
+      <div class="about-frame">
+        <span>📷</span>
+        <span>Drop your photo here</span>
+      </div>
+      <div class="about-corner tl"></div>
+      <div class="about-corner br"></div>
+    </div>
+    <div class="about-text">
+      <span class="section-label">About</span>
+      <h2 class="section-title">The Eye Behind<br />the Lens</h2>
+      <div class="section-divider"></div>
+      <p>
+        Based in Middle Tennessee, keyshotit.media delivers professional photo and video coverage that captures real moments with cinematic quality. Every shot is crafted with precision and purpose — nothing generic, nothing forgettable.
+      </p>
+      <p>
+        Whether it's an event, a brand campaign, or a personal shoot, the mission is the same: create visuals that stop the scroll and tell your story the way it deserves to be told.
+      </p>
+      <div class="about-stat-row">
+        <div class="about-stat">
+          <span class="about-stat-num">MTN</span>
+          <span class="about-stat-label">Based</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">📸 + 🎬</span>
+          <span class="about-stat-label">Photo &amp; Video</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">100%</span>
+          <span class="about-stat-label">Custom Work</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <span class="section-label">Get In Touch</span>
+    <h2 class="section-title">Let's Create<br />Something Great</h2>
+    <div class="section-divider"></div>
+    <div class="contact-inner">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <p class="contact-item-label">Phone</p>
+            <p class="contact-item-value"><a href="tel:9319981444">(931) 998-1444</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <p class="contact-item-label">Email</p>
+            <p class="contact-item-value"><a href="mailto:keylando1313@gmail.com">keylando1313@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <p class="contact-item-label">Location</p>
+            <p class="contact-item-value">Middle Tennessee</p>
+          </div>
+        </div>
+        <div>
+          <p class="contact-item-label" style="margin-bottom: 12px;">Follow Along</p>
+          <div class="social-row">
+            <a href="https://www.instagram.com/keyshotit.media/" target="_blank" class="social-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              Instagram
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61583874373507" target="_blank" class="social-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-input" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">What are you booking?</label>
+          <input type="text" class="form-input" placeholder="e.g. Event photography, brand video..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about your project, date, and any details..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">keyshotit.media</div>
+    <p class="footer-copy">&copy; 2026 keyshotit.media — Middle Tennessee</p>
+    <p class="footer-tagline">Every shot. Every story.</p>
+  </footer>
+
+  <script>
+    // Load pricing and gallery from data.json
+    (async function loadSiteData() {
+      try {
+        const res = await fetch('./data.json?' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        const cards = document.querySelectorAll('.pricing-card');
+
+        // Pricing
+        (data.pricing || []).forEach((pkg, i) => {
+          if (!cards[i]) return;
+          const card = cards[i];
+          if (pkg.price) {
+            card.querySelector('.pricing-price').innerHTML =
+              `<span class="currency">$</span>${pkg.price}`;
+          }
+          if (pkg.description) card.querySelector('.pricing-desc').textContent = pkg.description;
+          const features = (pkg.features || []).filter(f => f.trim());
+          if (features.length) {
+            card.querySelector('.pricing-features').innerHTML =
+              features.map(f => `<li>${f}</li>`).join('');
+          }
+        });
+
+        // Gallery
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        (data.gallery || []).forEach((item, i) => {
+          if (!galleryItems[i] || !item.url) return;
+          const placeholder = galleryItems[i].querySelector('.gallery-placeholder');
+          if (placeholder) {
+            const img = document.createElement('img');
+            img.src = item.url;
+            img.alt = item.label || 'Portfolio photo';
+            placeholder.replaceWith(img);
+          }
+        });
+      } catch(e) {}
+    })();
+
+    // Nav shrink on scroll
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.padding =
+        window.scrollY > 60 ? '14px 60px' : '20px 60px';
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-card, .pricing-card, .gallery-item, .contact-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+
+    // Form submit handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#2a7a2a';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.style.color = '';
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
 /HQ/websites/keyshotit-media/admin.html
 /HQ/websites/keyshotit-media/data.json
